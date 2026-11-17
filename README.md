@@ -11,6 +11,8 @@ npm run dev
 
 Buka `http://localhost:5173`. Aplikasi berjalan tanpa akun dan tanpa API key (mode DATA MOCK dan AI MOCK).
 
+Lupa isi repo ini? Mulai dari `docs/panduan/00-mulai-di-sini.md`.
+
 Langkah lengkap sampai URL publik: `docs/KICKSTART.md`.
 
 ## Stack
@@ -39,6 +41,7 @@ Header selalu menampilkan dua badge. Kuning berarti tiruan. Hijau berarti asli.
 - `netlify/functions/ai.ts` — fungsi AI. API key hanya ada di sini.
 - `mock/` — data dummy dan jawaban AI tiruan.
 - `supabase/` — skema dan data awal.
+- `docs/panduan/` — panduan penggunaan, 9 file. Mulai dari `00-mulai-di-sini.md`.
 - `docs/` — kickstart dan template prototype card.
 - `events/` — bahan per acara.
 - `CLAUDE.md` — instruksi dan resep untuk Claude Code.
