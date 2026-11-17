@@ -1,0 +1,13 @@
+{
+  "name": "prototype-server-optional",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.9.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "_catatan": "Jawaban AI tiruan. Kunci = nilai `mockKey` pada panggilan askAI(). Tambah kunci baru untuk alur baru.",
+  "default": {
+    "text": "Ini jawaban tiruan (AI MOCK). Isi ANTHROPIC_API_KEY untuk memakai Claude."
+  },
+  "ekstrak-kuitansi": {
+    "bidang": [
+      {
+        "nama": "Nomor kuitansi",
+        "nilai": "KW/2026/11/017",
+        "kutipan_sumber": "No. KW/2026/11/017",
+        "yakin": "tinggi"
+      },
+      {
+        "nama": "Tanggal",
+        "nilai": "12 November 2026",
+        "kutipan_sumber": "Bandung, 12 November 2026",
+        "yakin": "tinggi"
+      },
+      {
+        "nama": "Penerima",
+        "nilai": "Rina Kartika",
+        "kutipan_sumber": "Telah terima dari Redaksi Kabar Hijau (dummy) ... Penerima: Rina Kartika",
+        "yakin": "sedang"
+      },
+      {
+        "nama": "Keperluan",
+        "nilai": "Honor liputan kualitas air Sungai Citarum",
+        "kutipan_sumber": "Untuk pembayaran: honor liputan kualitas air Sungai Citarum",
+        "yakin": "tinggi"
+      },
+      {
+        "nama": "Jumlah",
+        "nilai": "Rp 1.500.000",
+        "kutipan_sumber": "Uang sejumlah: Rp 1.500.000 (satu juta lima ratus ribu rupiah)",
+        "yakin": "tinggi"
+      }
+    ]
+  },
+  "ringkas-transkrip": {
+    "bidang": [
+      {
+        "nama": "Kutipan kunci",
+        "nilai": "Airnya sudah tidak bisa dipakai mandi sejak pabrik itu buka.",
+        "kutipan_sumber": "[00:12] Airnya sudah tidak bisa dipakai mandi sejak pabrik itu buka.",
+        "yakin": "tinggi"
+      },
+      {
+        "nama": "Klaim yang perlu dicek",
+        "nilai": "Warga sudah melapor ke dinas tiga kali tanpa tanggapan.",
+        "kutipan_sumber": "[00:27] Kami sudah lapor ke dinas, tiga kali, tidak ada jawaban.",
+        "yakin": "sedang"
+      },
+      {
+        "nama": "Bagian yang tidak jelas",
+        "nilai": "Nama pabrik tidak terdengar jelas pada detik 00:19.",
+        "kutipan_sumber": "[00:19] Pabrik (tidak jelas) itu buangnya malam-malam.",
+        "yakin": "rendah"
+      }
+    ]
+  }
+}

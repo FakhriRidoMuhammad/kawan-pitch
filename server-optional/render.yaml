@@ -1,0 +1,17 @@
+# Blueprint Render. Tidak aktif sampai kamu menghubungkan repo ini ke Render.
+services:
+  - type: web
+    name: prototype-api
+    runtime: node
+    plan: free
+    rootDir: server-optional
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DEMO_ACCESS_CODE
+        sync: false
+      - key: ALLOWED_ORIGIN
+        sync: false

@@ -1,0 +1,14 @@
+{
+  "_catatan": "Transkrip dummy. `start` dan `end` dalam detik. `flag` menandai baris yang perlu didengar ulang.",
+  "title": "Wawancara warga bantaran sungai (data dummy)",
+  "audio": null,
+  "duration": 40,
+  "segments": [
+    { "start": 0, "end": 6, "speaker": "Jurnalis", "text": "Bisa Ibu ceritakan kondisi air di sini sekarang?" },
+    { "start": 6, "end": 12, "speaker": "Narasumber", "text": "Ya begini, Mbak. Warnanya hitam, baunya menyengat kalau pagi." },
+    { "start": 12, "end": 19, "speaker": "Narasumber", "text": "Airnya sudah tidak bisa dipakai mandi sejak pabrik itu buka." },
+    { "start": 19, "end": 27, "speaker": "Narasumber", "text": "Pabrik (tidak jelas) itu buangnya malam-malam.", "flag": "Audio bising. Nama pabrik tidak terdengar." },
+    { "start": 27, "end": 34, "speaker": "Narasumber", "text": "Kami sudah lapor ke dinas, tiga kali, tidak ada jawaban." },
+    { "start": 34, "end": 40, "speaker": "Narasumber", "text": "Teu aya nu datang, Mbak. Sampai sekarang.", "flag": "Bahasa campuran (Sunda). Periksa arti." }
+  ]
+}
