@@ -1,11 +1,11 @@
 // Satu tempat untuk mengubah identitas prototipe. Ubah file ini lebih dulu saat acara mulai.
 
 export const APP = {
-  name: "Nama Prototipe",
+  name: "Asisten Funding Ratih",
   // Rumusan masalah: "Bagaimana kita bisa membantu [siapa] menghadapi [masalah] di tahap [alur kerja]?"
   problem:
-    "Bagaimana kita bisa membantu editor menghadapi kuitansi yang dicek manual di tahap administrasi?",
-  team: "Tim A",
+    "Ratih butuh cara untuk mengomunikasikan nilai unik dan kredibilitas brand medianya kepada calon partner & investor, sehingga target funding tahunan dapat terpenuhi.",
+  team: "Kelompok 3",
 };
 
 export const ROLES = [
@@ -16,9 +16,4 @@ export const ROLES = [
 
 export type RoleId = (typeof ROLES)[number]["id"];
 
-export const NAV = [
-  { to: "/", label: "Beranda" },
-  { to: "/contoh", label: "Alur contoh" },
-  { to: "/transkrip", label: "Transkrip" },
-  { to: "/data", label: "Data tersimpan" },
-];
+export const NAV = [{ to: "/", label: "Asisten Funding" }];

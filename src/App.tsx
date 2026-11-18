@@ -4,6 +4,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { APP } from "@/config";
 import { RoleProvider } from "@/lib/roles";
 import { ExampleFlow } from "@/pages/ExampleFlow";
+import { FundingFlow } from "@/pages/funding/FundingFlow";
 import { Home } from "@/pages/Home";
 import { Records } from "@/pages/Records";
 import { Transcript } from "@/pages/Transcript";
@@ -19,11 +20,12 @@ export function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AppShell />}>
-            <Route index element={<Home />} />
+            <Route index element={<FundingFlow />} />
+            <Route path="beranda" element={<Home />} />
             <Route path="contoh" element={<ExampleFlow />} />
             <Route path="transkrip" element={<Transcript />} />
             <Route path="data" element={<Records />} />
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={<FundingFlow />} />
           </Route>
         </Routes>
       </BrowserRouter>
