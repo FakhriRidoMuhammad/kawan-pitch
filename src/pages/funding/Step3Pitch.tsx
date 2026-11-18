@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { StepProps } from "./FundingFlow";
-import { ARTIKEL, AUDIENS, KONSEP, LANGKAH_AI, SEGMEN, SUMBER_LABEL, VALUE_EXCHANGE, type Segmen } from "./dummy";
+import { ARTIKEL, AUDIENS, LANGKAH_AI, PRESET, type Segmen } from "./dummy";
+import { partnerOf, picOf, susunPitch } from "./mockAI";
 import { AIBadge, AIWorking, RatihBadge } from "./shared";
 
 export function Step3Pitch({ state, set, go }: StepProps) {
@@ -20,8 +21,14 @@ export function Step3Pitch({ state, set, go }: StepProps) {
     return <AIWorking steps={LANGKAH_AI.pitch} onDone={onLoaded} />;
   }
 
-  // Klaim dari artikel yang tidak dipilih di Layar 2 tidak dipakai.
-  const visible = SEGMEN.filter((s) => !s.sumber || s.sumber === "aud" || state.selected.includes(s.sumber));
+  const t = state.tafsiran!;
+  const partner = partnerOf(t.partnerId);
+  const preset = PRESET[t.partnerId];
+  const KONSEP = { ...preset.konsep, nama: t.konsepNama };
+  const VALUE_EXCHANGE = preset.valueExchange;
+  // Draf disusun dari intensi + artikel yang dipilih di Layar 2.
+  const visible = susunPitch(t, state.selected);
+  const label = (src: string) => (src === "aud" ? "Audiens" : (ARTIKEL.find((a) => a.id === src)?.kode ?? src));
   const aiText = (s: Segmen) => {
     const src = state.variant === 1 && s.alt ? s.alt : s;
     return src[state.tone];
@@ -99,7 +106,7 @@ export function Step3Pitch({ state, set, go }: StepProps) {
                 : "border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100",
             )}
           >
-            Sumber: {SUMBER_LABEL[s.sumber]}
+            Sumber: {label(s.sumber)}
           </button>
         )}
         <span className="ml-2 inline-flex gap-1 align-middle">
@@ -137,7 +144,7 @@ export function Step3Pitch({ state, set, go }: StepProps) {
             </ul>
           </div>
           <div className="rounded-md bg-muted p-3 text-sm">
-            <div className="mb-1 font-semibold">Redaksi → Eiger</div>
+            <div className="mb-1 font-semibold">Redaksi → {partner.nama}</div>
             <ul className="list-disc space-y-0.5 pl-5">
               {VALUE_EXCHANGE.redaksiKePartner.map((v) => (
                 <li key={v}>{v}</li>
@@ -145,7 +152,7 @@ export function Step3Pitch({ state, set, go }: StepProps) {
             </ul>
           </div>
           <div className="rounded-md bg-muted p-3 text-sm">
-            <div className="mb-1 font-semibold">Eiger → Redaksi</div>
+            <div className="mb-1 font-semibold">{partner.nama} → Redaksi</div>
             <ul className="list-disc space-y-0.5 pl-5">
               {VALUE_EXCHANGE.partnerKeRedaksi.map((v) => (
                 <li key={v}>{v}</li>
@@ -207,7 +214,7 @@ export function Step3Pitch({ state, set, go }: StepProps) {
                 <CardHeader className="flex-row flex-wrap items-center justify-between gap-2">
                   <div>
                     <CardTitle>Draf email pitch</CardTitle>
-                    <p className="text-xs text-muted-foreground">Kepada: Dina Kusuma, Eiger (fiktif) · Lampiran: one-pager.pdf</p>
+                    <p className="text-xs text-muted-foreground">Kepada: {picOf(t.partnerId)}, {partner.nama} (fiktif) · Lampiran: one-pager.pdf</p>
                   </div>
                   <AIBadge />
                 </CardHeader>

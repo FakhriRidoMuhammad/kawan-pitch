@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { StepProps } from "./FundingFlow";
 import { AKTIVASI, FUNDING, FUNNEL, PROPOSAL, SEBELUM, type ProposalStatus } from "./dummy";
+import { partnerOf } from "./mockAI";
 import { AIBadge, RatihBadge } from "./shared";
 
 const STATUS_STYLE: Record<ProposalStatus, string> = {
@@ -20,9 +21,11 @@ export function Step5Monitoring({ state, set, go }: StepProps) {
   const terkirim = FUNNEL[1].nilai;
   const fundingPct = Math.round((FUNDING.terkumpul / FUNDING.target) * 100);
 
+  const t = state.tafsiran;
+  const partner = t ? partnerOf(t.partnerId) : null;
   const rows = [
-    ...(state.sent
-      ? [{ partner: "Eiger · Ibu Penjaga Alam", tanggal: "22 Nov 2026", status: "Terkirim" as ProposalStatus, nilai: "Rp 85 jt", baru: true }]
+    ...(state.sent && t && partner
+      ? [{ partner: `${partner.nama} · ${t.konsepNama}`, tanggal: "18 Nov 2026", status: "Terkirim" as ProposalStatus, nilai: t.dana, baru: true }]
       : []),
     ...PROPOSAL.map((p) => ({ ...p, baru: false })),
   ];
@@ -117,7 +120,7 @@ export function Step5Monitoring({ state, set, go }: StepProps) {
             Proposal yang memakai ≥2 karya redaksi sebagai bukti 2× lebih sering goal.
           </p>
           <p className="text-xs text-emerald-900/80">
-            Pitch Eiger memakai {state.selected.length} karya redaksi dengan label sumber.
+            {partner ? `Pitch ${partner.nama} memakai ${state.selected.length} karya redaksi dengan label sumber.` : "Pakai label sumber agar setiap klaim bisa dicek partner."}
           </p>
         </div>
       </div>
@@ -152,7 +155,7 @@ export function Step5Monitoring({ state, set, go }: StepProps) {
             </tbody>
           </table>
           {!state.sent && (
-            <p className="pt-2 text-xs text-muted-foreground">Pitch Eiger belum dikirim. Selesaikan tahap 4 agar muncul di sini.</p>
+            <p className="pt-2 text-xs text-muted-foreground">Pitch barumu belum dikirim. Selesaikan tahap 4 agar muncul di sini.</p>
           )}
         </CardContent>
       </Card>
@@ -160,7 +163,7 @@ export function Step5Monitoring({ state, set, go }: StepProps) {
       <Card>
         <CardHeader className="flex-row flex-wrap items-center justify-between gap-2">
           <div>
-            <CardTitle className="text-base">Hasil aktivasi Eiger (simulasi setelah 22 Des)</CardTitle>
+            <CardTitle className="text-base">Hasil aktivasi {partner?.nama ?? "partner"} (simulasi setelah {t?.tanggal ?? "event"})</CardTitle>
             <p className="text-xs text-muted-foreground">Bukti nilai untuk pitch berikutnya</p>
           </div>
           <AIBadge />
@@ -177,10 +180,12 @@ export function Step5Monitoring({ state, set, go }: StepProps) {
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <RatihBadge />
             <Button
+              disabled={!state.sent}
               className="bg-blue-600 hover:bg-blue-700"
               onClick={() => {
-                set({ eigerSaved: true, eigerOpen: true, bannerDismissed: true });
-                toast.success("Tersimpan sebagai bukti di kartu Eiger.");
+                if (!t) return;
+                set({ savedPartnerId: t.partnerId, bannerDismissed: true });
+                toast.success(`Tersimpan sebagai bukti di kartu ${partner?.nama}.`);
                 go(1);
               }}
             >

@@ -4,11 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { StepProps } from "./FundingFlow";
-import { CO_PUBLIKASI, TIMELINE } from "./dummy";
+import { CO_PUBLIKASI, timeline } from "./dummy";
+import { partnerOf, picOf } from "./mockAI";
 import { AIBadge, RatihBadge } from "./shared";
 
 export function Step4Eksekusi({ state, set, go }: StepProps) {
   const [confirm, setConfirm] = useState(false);
+  const t = state.tafsiran!;
+  const partner = partnerOf(t.partnerId);
+  const pic = picOf(t.partnerId);
+  const TIMELINE = timeline(`${t.tanggal} · ${t.momen}`);
 
   if (!state.approved && !state.sent) {
     return (
@@ -26,15 +31,15 @@ export function Step4Eksekusi({ state, set, go }: StepProps) {
       <Card>
         <CardHeader className="flex-row flex-wrap items-center justify-between gap-2">
           <div>
-            <CardTitle>Kirim pitch ke Eiger</CardTitle>
-            <p className="text-xs text-muted-foreground">Kepada: Dina Kusuma (fiktif) · Subjek: Kolaborasi Hari Ibu "Ibu Penjaga Alam"</p>
+            <CardTitle>Kirim pitch ke {partner.nama}</CardTitle>
+            <p className="text-xs text-muted-foreground">Kepada: {pic} (fiktif) · Subjek: Kolaborasi {t.momen} "{t.konsepNama}"</p>
           </div>
           <RatihBadge />
         </CardHeader>
         <CardContent>
           {state.sent ? (
             <div className="flex items-center gap-2 rounded-md bg-emerald-50 p-3 text-sm font-medium text-emerald-800">
-              <CheckCircle2 className="size-5" /> Terkirim · 22 Nov 2026, 09.14 (simulasi)
+              <CheckCircle2 className="size-5" /> Terkirim · 18 Nov 2026, 09.14 (simulasi)
             </div>
           ) : (
             <div className="flex flex-wrap gap-2">
@@ -102,7 +107,7 @@ export function Step4Eksekusi({ state, set, go }: StepProps) {
           <div className="w-full max-w-md space-y-4 rounded-lg bg-card p-5 shadow-xl" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-lg font-semibold">Kirim pitch sekarang?</h3>
             <p className="text-sm text-muted-foreground">
-              Email dan one-pager akan dikirim ke Dina Kusuma (Eiger). Pastikan kamu sudah membaca seluruh draf.
+              Email dan one-pager akan dikirim ke {pic} ({partner.nama}). Pastikan kamu sudah membaca seluruh draf.
             </p>
             <div className="flex flex-wrap justify-end gap-2">
               <Button

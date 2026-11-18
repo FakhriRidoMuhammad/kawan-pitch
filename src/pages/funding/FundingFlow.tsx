@@ -3,6 +3,7 @@ import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Tone } from "./dummy";
+import type { Tafsiran } from "./mockAI";
 import { AIBadge, RatihBadge } from "./shared";
 import { Step1Relasi } from "./Step1Relasi";
 import { Step2Konteks } from "./Step2Konteks";
@@ -19,8 +20,10 @@ const STEPS = [
 ];
 
 export interface FlowState {
+  prompt: string;
+  /** Tafsiran AI atas intensi Ratih. null = belum ada intensi. */
+  tafsiran: Tafsiran | null;
   bannerDismissed: boolean;
-  eigerOpen: boolean;
   contextLoaded: boolean;
   selected: string[];
   pitchLoaded: boolean;
@@ -29,12 +32,14 @@ export interface FlowState {
   edits: Record<string, string>;
   approved: boolean;
   sent: boolean;
-  eigerSaved: boolean;
+  /** Partner yang hasil aktivasinya sudah disimpan sebagai bukti. */
+  savedPartnerId: string | null;
 }
 
 const INITIAL: FlowState = {
+  prompt: "",
+  tafsiran: null,
   bannerDismissed: false,
-  eigerOpen: false,
   contextLoaded: false,
   selected: ["a1", "a2", "a3"],
   pitchLoaded: false,
@@ -43,7 +48,7 @@ const INITIAL: FlowState = {
   edits: {},
   approved: false,
   sent: false,
-  eigerSaved: false,
+  savedPartnerId: null,
 };
 
 export interface StepProps {
@@ -109,9 +114,18 @@ export function FundingFlow() {
       </ol>
 
       {step === 1 && <Step1Relasi {...props} />}
-      {step === 2 && <Step2Konteks {...props} />}
-      {step === 3 && <Step3Pitch {...props} />}
-      {step === 4 && <Step4Eksekusi {...props} />}
+      {step >= 2 && step <= 4 && !state.tafsiran ? (
+        <div className="space-y-3 rounded-lg border bg-card p-6 text-sm">
+          <p>Tulis dulu intensi atau idemu di tahap 1, atau ambil saran peluang dari AI.</p>
+          <Button onClick={() => go(1)}>Ke tahap 1</Button>
+        </div>
+      ) : (
+        <>
+          {step === 2 && <Step2Konteks {...props} />}
+          {step === 3 && <Step3Pitch {...props} />}
+          {step === 4 && <Step4Eksekusi {...props} />}
+        </>
+      )}
       {step === 5 && <Step5Monitoring {...props} />}
     </div>
   );
